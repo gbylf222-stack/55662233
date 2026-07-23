@@ -1,0 +1,6 @@
+id=brightness_floor_overlay
+name=Brightness Floor Overlay (14% minimum)
+version=v1.0
+versionCode=1
+author=claude
+description=通过RRO静态覆盖，把系统自动亮度的三个下限变量(整数版/浮点版/HyperOS版)全部设为14%，开机由系统自动扫描生效，零闪烁零轮询。
