@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="config_screenBrightnessSettingMinimum">36</integer>
+
+    <item name="config_screenBrightnessSettingMinimumFloat" type="dimen" format="float">0.14</item>
+
+    <integer name="config_screenBrightnessSettingMinimum_hyper">36</integer>
+
+</resources>
