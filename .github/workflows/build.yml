@@ -1,0 +1,45 @@
+name: Build KSU Brightness Floor Overlay
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install build-tools & platform
+        run: |
+          sdkmanager --install "build-tools;34.0.0" "platforms;android-34"
+
+      - name: Build overlay apk
+        working-directory: overlay-src
+        run: |
+          export ANDROID_HOME=$ANDROID_SDK_ROOT
+          bash build.sh
+
+      - name: Assemble KSU module
+        run: |
+          mkdir -p ksu-module/system_ext/overlay
+          cp overlay-src/BrightnessFloorOverlay.apk ksu-module/system_ext/overlay/
+          cd ksu-module
+          zip -r ../brightness_floor_overlay.zip module.prop customize.sh system_ext
+
+      - name: Upload built module
+        uses: actions/upload-artifact@v4
+        with:
+          name: brightness_floor_overlay
+          path: brightness_floor_overlay.zip
